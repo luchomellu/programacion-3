@@ -17,6 +17,7 @@ public class main {
 		
 		System.out.println("Arreglo desordenado: " + arreglo +"\n");
 		System.out.println("Arreglo ordenado con algoritmo de seleccion: " + selectionSort(arreglo) +"\n");
+		System.out.println("Arreglo ordenado con algoritmo de burbujeo: " + bubbleSort(arreglo) +"\n");
 	}
 	
 	public static ArrayList<Integer> selectionSort(ArrayList<Integer> arreglo){
@@ -32,6 +33,24 @@ public class main {
 			int temp = copia.get(i);
 			copia.set(i , copia.get(min));
 			copia.set(min, temp);
+		}
+		
+		return copia;
+	}
+	
+	public static ArrayList<Integer> bubbleSort(ArrayList<Integer> arreglo){
+		ArrayList<Integer> copia = arreglo;
+		
+		for(int i = copia.size(); i > 0; i--) {
+			//System.out.println(i);
+			for(int j = 0; j < i - 1; j++) {
+				//System.out.println(j);
+				if(copia.get(j) > copia.get(j + 1)) {
+					int temp = copia.get(j);
+					copia.set(j, copia.get(j + 1));
+					copia.set(j + 1, temp);
+				}
+			}
 		}
 		
 		return copia;
