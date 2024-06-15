@@ -31,6 +31,5 @@ public class TreeNode {
 	public Integer getValue() {
 		return value;
 	}
-
 	
 }
