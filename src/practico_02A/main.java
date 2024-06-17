@@ -26,7 +26,14 @@ public class main {
 		arbol.printPosOrder();
 		arbol.printPreOrder();
 		arbol.printInOrder();
-		
+		System.out.println("Longest Branch: " + arbol.getLongestBranch());
+		System.out.println("Frontera: " + arbol.getFrontera());
+		System.out.println("Elemento Mas Grande: " + arbol.getMaxElem());
+		System.out.println("Elementos en nivel 0 " + arbol.getElemAtLevel(0));
+		System.out.println("Elementos en nivel 1 " + arbol.getElemAtLevel(1));
+		System.out.println("Elementos en nivel 2 " + arbol.getElemAtLevel(2));
+		System.out.println("Elementos en nivel 3 " + arbol.getElemAtLevel(3));
+		System.out.println("Elementos en nivel 4 " + arbol.getElemAtLevel(4));
 	}
 	
 }

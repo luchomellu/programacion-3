@@ -1,5 +1,6 @@
 package practico_02A;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tree {
@@ -99,6 +100,28 @@ public class Tree {
 			}
 		}
 	}
+	
+	public List<Integer> getElemAtLevel(int lvl){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		int current = 0;
+		findElemAtLevel(this.root,res,current,lvl);
+		return res;
+	}
+
+	private void findElemAtLevel(TreeNode node, ArrayList<Integer> res, int current, int lvl) {
+		if(current == lvl) {
+			res.add(node.getValue());
+		}
+		
+		if(current <= lvl) {
+			if(node.getLeft() != null) {
+				findElemAtLevel(node.getLeft(),res,current + 1,lvl);
+			}
+			if(node.getRight() != null) {
+				findElemAtLevel(node.getRight(),res,current + 1,lvl);
+			}
+		}
+	}
 
 	private boolean findAndDelete(Integer value, TreeNode node) {
 		if(node == null) {
@@ -139,9 +162,75 @@ public class Tree {
 	}
 	
 	public List<Integer> getLongestBranch() {
-		return null;
+		ArrayList<Integer> longest = new ArrayList<Integer>();
+		ArrayList<Integer> current = new ArrayList<Integer>();
+		findLongestBranch(this.root,current,longest);
+		return longest;
 	}
 	
+	private void findLongestBranch(TreeNode node, ArrayList<Integer> current, ArrayList<Integer> longest) {
+		if(node == null) {
+			if(current.size() > longest.size()) {
+				longest.clear();
+				longest.addAll(current);
+			}
+			return;
+		}
+		current.add(node.getValue());
+		findLongestBranch(node.getLeft(), current, longest);
+		findLongestBranch(node.getRight(), current, longest);
+		current.remove(node.getValue());
+	}
+	
+	public List<Integer> getFrontera(){
+		ArrayList<Integer> res = new ArrayList<>();
+		findFrontera(this.root,res);
+		return res;
+	}
+
+	private void findFrontera(TreeNode node, ArrayList<Integer> res) {
+		if(node.getLeft() == null && node.getRight() == null) {
+			res.add(node.getValue());
+		}
+		if(node.getLeft() != null) {
+			findFrontera(node.getLeft(), res);
+		}
+		if(node.getRight() != null) {
+			findFrontera(node.getRight(), res);
+		}
+		
+	}
+	
+	public Integer getMaxElem() {
+		//return findMaxElem(this.root);
+		return findMaxElemInteligente(this.root);
+	}
+
+	private Integer findMaxElem(TreeNode node) {
+		if(node == null) {
+			return 0;
+		}
+		int max = node.getValue();
+		int lmax = findMaxElem(node.getLeft());
+		int rmax = findMaxElem(node.getRight());
+		
+		if(lmax > max) {
+			max = lmax;
+		}
+		if(rmax > max) {
+			 max = rmax;
+		}
+		
+		return max;
+	}
+	
+	private Integer findMaxElemInteligente(TreeNode node) {
+		if(node.getRight() == null) {
+			return node.getValue();
+		}
+		return findMaxElemInteligente(node.getRight());
+	}
+
 	public void imprimirArbol() {
 		TreeFormatter formatter = new TreeFormatter();
 	    System.out.println(formatter.topDown(root));
