@@ -16,9 +16,6 @@ public class main {
 		arbol.add(3);
 		
 		
-		arbol.imprimirArbol();
-		System.out.println(arbol.hasElem(1));
-		System.out.println(arbol.hasElem(9));
 		System.out.println(arbol.delete(453));
 		arbol.imprimirArbol();
 		System.out.println(arbol.hasElem(453));
@@ -34,6 +31,15 @@ public class main {
 		System.out.println("Elementos en nivel 2 " + arbol.getElemAtLevel(2));
 		System.out.println("Elementos en nivel 3 " + arbol.getElemAtLevel(3));
 		System.out.println("Elementos en nivel 4 " + arbol.getElemAtLevel(4));
+		
+		System.out.println("Suma de todos los nodos: " + arbol.getSumaAllNodos());
+		System.out.println("Lista de numeros mayores a 3: " + arbol.getLeafsHigherThan(3));
+		
+		arbol.ej2setNulls();
+		arbol.imprimirArbol();
+		arbol.ej2();
+		arbol.imprimirArbol();
+		
 	}
 	
 }

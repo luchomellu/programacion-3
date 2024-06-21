@@ -40,6 +40,44 @@ public class Tree {
 		}
 	}
 	
+	public void ej2setNulls() {
+		setAllInternalNodesNull(this.root);
+	}
+	
+	public void ej2() {
+		ej2SetNodes(this.root);
+	}
+	
+	private Integer ej2SetNodes(TreeNode node) {
+		// TODO Auto-generated method stub
+		if(node.getLeft() == null && node.getRight() == null) {
+			return node.getValue();
+		}
+		if(node.getLeft() == null) {
+			node.setValue(ej2SetNodes(node.getRight()) - 0);
+			return node.getValue(); 
+		}
+		if(node.getRight() == null) {
+			node.setValue(0 - ej2SetNodes(node.getLeft()));
+			return node.getValue();
+		}
+		node.setValue(ej2SetNodes(node.getRight()) - ej2SetNodes(node.getLeft()));
+		return node.getValue();
+	}
+
+	private void setAllInternalNodesNull(TreeNode node) {
+		if(node.getLeft() == null && node.getRight() == null) {
+			return;
+		}
+		node.setValue(null);
+		if(node.getLeft() != null) {
+			setAllInternalNodesNull(node.getLeft());
+		}
+		if(node.getRight() != null) {
+			setAllInternalNodesNull(node.getRight());
+		}
+	}
+	
 	public Integer getRoot() {
 		if(this.root != null) {
 			return this.root.getValue();
@@ -229,6 +267,37 @@ public class Tree {
 			return node.getValue();
 		}
 		return findMaxElemInteligente(node.getRight());
+	}
+	
+	public Integer getSumaAllNodos() {
+		return findSumaAllNodos(this.root);
+	}
+
+	private Integer findSumaAllNodos(TreeNode node) {
+		if(node == null) {
+			return 0;
+		}
+		return node.getValue() + findSumaAllNodos(node.getLeft()) + findSumaAllNodos(node.getRight()); 
+	}
+	
+	public List<Integer> getLeafsHigherThan(Integer num){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		
+		findLeafsHigherThan(this.root,num,res);
+		
+		return res;
+	}
+
+	private void findLeafsHigherThan(TreeNode node,Integer num, ArrayList<Integer> res) {
+		if(node.getValue() > num && (node.getLeft() == null && node.getRight() == null)) {
+			res.add(node.getValue());
+		}
+		if(node.getLeft() != null) {
+			findLeafsHigherThan(node.getLeft(),num,res);
+		}
+		if(node.getRight() != null) {
+			findLeafsHigherThan(node.getRight(),num,res);
+		}
 	}
 
 	public void imprimirArbol() {
