@@ -32,7 +32,7 @@ public class CharTree {
 			current.add(node.getValue());
 			if(num == i.getValue()) {
 				res.addAll(current);
-				i.increment();;
+				i.increment();
 				return;
 			}
 			else {
