@@ -1,23 +1,56 @@
 package practico_03;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class Main {
 
+	public static <T> void mostrarGrafo (Grafo<T> grafo)
+	{
+		// Recorremos todos los vertices
+		Iterator<Integer> it = grafo.obtenerVertices();
+		
+		while (it.hasNext()) {
+			Integer v = (Integer) it.next();
+			System.out.println("Vertice" + v);
+			// Recorremos todos los adyacentes de cada vertice
+			Iterator<Arco<T>> itA = grafo.obtenerArcos(v);
+			while (itA.hasNext()) {
+				Arco<T> arco = itA.next();
+				System.out.println("    " + v + "-> " + arco.getVerticeDestino() + " (" + arco.getEtiqueta() + ")");
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 
-		// Creo un grafo dirigdo donde las etiquetas de los arcos son valores Float
-		GrafoDirigido<Float> grafito = new GrafoDirigido<>();
-		
-		// Agrego los vertices 1 y 2
-		grafito.agregarVertice(1);
-		grafito.agregarVertice(2);
+		GrafoDirigido<Integer> g = new GrafoDirigido<Integer>();
 
-		// Genero un arco desde 1 hasta 2 con el valor de etiqueta 3
-		grafito.agregarArco(1, 2, 3F);
-		
-		// Obtengo el arco entre 1 y 2, y le pido la etiqueta
-		Float etiqueta = grafito.obtenerArco(1, 2).getEtiqueta();
-		
-		System.out.println(etiqueta); // Debería imprimir 3
+		// Cargamos un grafo dirigido
+		// Primero los vÃ©rtices
+		g.agregarVertice(1);
+		g.agregarVertice(2);
+		g.agregarVertice(3);
+		g.agregarVertice(4);
+		g.agregarVertice(5);
+		g.agregarVertice(6);
+		g.agregarVertice(7);
+
+		// Luego los arcos
+		g.agregarArco(1, 2, 12);
+		g.agregarArco(1, 3, 13);
+		g.agregarArco(1, 4, 14);
+		g.agregarArco(2, 6, 26);
+		g.agregarArco(3, 5, 35);
+		g.agregarArco(4, 7, 47);
+		g.agregarArco(5, 6, 56);
+
+	    mostrarGrafo(g);
+	    
+	    AlgoritmoDFS dfs = new AlgoritmoDFS(g);
+	    List<Integer> resDFS = dfs.getDFS();
+	    System.out.println("DFS: (mas comun: [1, 2, 6, 3, 5, 4, 7])");
+	    System.out.println(resDFS);
 	}
 	
 }
